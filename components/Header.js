@@ -17,8 +17,12 @@ export default function Header(){
           <Link href="/order">
             <a className="btn btn-link">Order</a>
           </Link>
-          <a href="#none" className="btn btn-link">Hiring!</a>
-          <a href="#none" className="btn btn-link">Contact us</a>
+          <Link href="/hiring">
+          <a className="btn btn-link">Hiring!</a>
+          </Link>
+          <Link href="/contactus">
+          <a className="btn btn-link">Contact us</a>
+          </Link>
         </div>
      </header> 
     )
