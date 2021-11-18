@@ -6,7 +6,9 @@ export default function Hiring(){
         <div className="container">
         <Header/>
   
-         <h1>Hiring</h1>
+         <h1 className="font-bold">Hiring</h1>
+
+         <p>cafe에서는 언제나 새로운 직원을 뽑고 있습니다!</p>
       </div>
     )
 }
