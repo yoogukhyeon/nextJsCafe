@@ -1,9 +1,13 @@
 import Link from 'next/link';
 import Header from '../components/Header'
-
+import Head from 'next/head';
 export default function Home() {
   return (
     <div className="container">
+      <Head>
+        <title>메인 :: cafe : 온라인 커피 주문 </title>
+      </Head>
+
       <Header/>
 
       <div className="p-5 mb-4 bg-light rounded-3">
