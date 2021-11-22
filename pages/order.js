@@ -1,16 +1,16 @@
 import Header from '../components/Header'
-import {Fragment , useState , useMemo } from 'react'
-
+import {Fragment , useState , useMemo, useEffect } from 'react'
+import axios from 'axios';
+import useSWR from 'swr';
 const formatter = Intl.NumberFormat('ko-KR')
 
-const data = [
-    {name : '에스프레소' , price : 2800},
-    {name : '아메리카노' , price : 3000},
-    {name : '카페라떼' , price : 3500},
-    {name : "카페모카" , price : 3800}
-];
+const fetcher = function(){
+    return axios.get('http://localhost:3000/api/menu').then(response => response.data)
+}
 
-export default function Order(){
+
+export default function Order(props){
+    console.log('props' , props.menu)
     const [selected , setSelected] = useState( [] )
     console.log('selected' , selected)
 
@@ -24,8 +24,29 @@ export default function Order(){
         return value
     } , [ selected ])
 
- 
+    
+    const {data , error} = useSWR('http://localhost:3000/api/menu' , fetcher)
+    console.log('data' , data);
+    console.log('error' , error);
+
+
+
+
     const [ count , setCount] = useState( 0 )
+
+    const [ menu , setMenu ] = useState( [] );
+
+    useEffect(() => {
+        // console.log('window' , window)
+        // fetch('/api/menu')
+        //     .then(response => response.json())
+        //     .then(json => setMent(json))
+        //     .catch(console.warn)
+        axios.get('api/menu')
+            .then(response => setMenu(response.data))
+            .catch(console.warn)
+    } , [])
+
 
     return (
         <div className="container">
@@ -46,7 +67,7 @@ export default function Order(){
         <dl>
 
         {
-            data.map(element => ( 
+            menu.map(element => ( 
                 <Fragment key={element.name}>
                     <dt>
                         {element.name}
@@ -91,3 +112,14 @@ export default function Order(){
       </div>
     )
 }
+
+
+// export async function getServerSideProps(context) {
+//     const response = await axios.get('http://localhost:3000/api/menu')
+//     console.log('getServerSideProps')
+//     return {
+//       props: {
+//           menu : response.data
+//       }, // will be passed to the page component as props
+//     }
+//   }
